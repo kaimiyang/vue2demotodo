@@ -4,6 +4,7 @@
     <div>
       <button type="button" @click="popAdd">添加</button>
     </div>
+    <div><input class="search" type="text" v-model.trim="keyworks" /></div>
     <List :datas="list" 
     @onEdit="handleEditPop"
     @onRemove="handleRemove" />
@@ -20,6 +21,7 @@
 
 <script>
 import { List, Add, Edit } from '../components/todo'
+// import _ from 'lodash'
 export default {
   components: {
     List,
@@ -29,10 +31,33 @@ export default {
   data() {
     return {
       list: [],
+      listbak: null,
       editIndex: 0,
       editItem: null,
       modalAdd: false,
       modalEdit: false,
+      keyworks: ''
+    }
+  },
+  watch: {
+    keyworks(val) {
+      if (this.listbak === null) {
+        this.listbak = this.list
+      }
+      
+      if (val) {
+        const result = this.list.filter((item) => {
+          const {
+            name,
+          } = item
+          return name.includes(val)
+        })
+      
+        this.list = result
+      } else {
+        this.list = this.listbak
+      }
+      
     }
   },
   methods: {
@@ -66,5 +91,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.search {
+  width: 300px;
+  height: 30px;
+}
 </style>
