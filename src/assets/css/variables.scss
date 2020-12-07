@@ -1,1 +1,19 @@
 $primary: purple;
+
+@mixin ellipsis {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin layoutCenter {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+}
